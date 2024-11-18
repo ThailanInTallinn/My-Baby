@@ -5,7 +5,10 @@ interface AppProviderProps {
   children: ReactNode;
 }
 
-interface AppContextInterface {}
+interface AppContextInterface {
+  showSnackMessage: Function;
+  showAlertMessage: Function;
+}
 
 const AppContext = createContext<AppContextInterface | null>(null);
 

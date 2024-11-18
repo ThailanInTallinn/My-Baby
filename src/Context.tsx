@@ -1,8 +1,8 @@
 import { Alert, Grid2, Snackbar } from "@mui/material";
-import { createContext, useContext, useState } from "react";
+import { createContext, ReactElement, useContext, useState } from "react";
 
 interface AppProviderProps {
-  children: ReactNode;
+  children: ReactElement;
 }
 
 interface AppContextInterface {

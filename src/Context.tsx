@@ -1,4 +1,4 @@
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Grid2, Snackbar } from "@mui/material";
 import { createContext, useContext, useState } from "react";
 
 interface AppProviderProps {
@@ -38,8 +38,9 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     setTimeout(() => {
       setAlertMessage("");
       setAlertSeverity("");
-    }, 4000);
+    }, timeOutDuration);
   };
+
   const mudarIdioma = () => {};
 
   const sharedState = {
@@ -52,7 +53,22 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     <AppContext.Provider value={sharedState}>
       {children}
       <Snackbar message={snackMessage} open={snackOpen} onClose={handleClose} />
-      <Alert severity={alertSeverity}>{alertMessage}</Alert>
+      {alertMessage ? (
+        <Grid2
+          container={true}
+          sx={{
+            position: "absolute",
+            left: 0,
+            bottom: 0,
+            width: "100%",
+            padding: 2,
+          }}
+        >
+          <Grid2 sx={{ width: "100%" }}>
+            <Alert severity={alertSeverity}>{alertMessage}</Alert>
+          </Grid2>
+        </Grid2>
+      ) : null}
     </AppContext.Provider>
   );
 };

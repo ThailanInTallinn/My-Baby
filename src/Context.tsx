@@ -26,7 +26,7 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     setTimeout(() => {
       setSnackOpen(false);
       setSnackMessage("");
-    }, 5000);
+    }, timeOutDuration);
   };
 
   const handleClose = () => {

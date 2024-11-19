@@ -1,5 +1,12 @@
 import { Alert, Grid2, Snackbar } from "@mui/material";
-import { createContext, ReactElement, useContext, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
+import {
+  createContext,
+  ReactElement,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 interface AppProviderProps {
   children: ReactElement;
@@ -18,6 +25,10 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("");
   const timeOutDuration = 6000;
+  const supabase = createClient(
+    import.meta.env.VITE_SUPABASE_URL!,
+    import.meta.env.VITE_SUPABASE_ANON_KEY!
+  );
 
   const showSnackMessage = (message: string) => {
     setSnackMessage("Cliquei");
@@ -50,6 +61,7 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     mudarIdioma,
     showSnackMessage,
     showAlertMessage,
+    supabase,
   };
 
   return (

@@ -1,12 +1,6 @@
 import { Alert, Grid2, Snackbar } from "@mui/material";
 import { createClient } from "@supabase/supabase-js";
-import {
-  createContext,
-  ReactElement,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, ReactElement, useContext, useState } from "react";
 
 interface AppProviderProps {
   children: ReactElement;

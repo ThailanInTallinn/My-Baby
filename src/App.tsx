@@ -1,13 +1,10 @@
-import { useState } from "react";
-
-import "./App.css";
-import Index from "./routes";
+import Routes from "./routes";
 import AppProvider from "./Context";
 
 function App() {
   return (
     <AppProvider>
-      <Index />
+      <Routes />
     </AppProvider>
   );
 }

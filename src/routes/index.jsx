@@ -22,14 +22,8 @@ const router = createBrowserRouter(
     <Route path="/">
       <Route element={<Protected />}>
         <Route
-          path="/"
           index
           element={<Home />}
-          loader={() => handleVerificationProtected()}
-        />
-        <Route
-          path="settings"
-          element={<Settings />}
           loader={() => handleVerificationProtected()}
         />
         <Route
@@ -37,8 +31,17 @@ const router = createBrowserRouter(
           element={<Dashboard />}
           loader={() => handleVerificationProtected()}
         />
+        <Route
+          path="new/:type"
+          element={<Form />}
+          loader={() => handleVerificationProtected()}
+        />
+        <Route
+          path=":type/:id"
+          element={<Form />}
+          loader={() => handleVerificationProtected()}
+        />
       </Route>
-
       <Route
         path="signin"
         element={<SignIn />}

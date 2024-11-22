@@ -71,9 +71,18 @@ export default function SignUp() {
       size={{ xs: 12 }}
       sx={{ height: "100vh", width: "100vw" }}
     >
-      <Grid2 item="true" size={{ xs: 12 }} sx={styles.centerBox}>
+      <Grid2
+        item="true"
+        size={{ xs: 12 }}
+        sx={{ ...styles.centerBox, marginTop: 0 }}
+      >
         <Avatar
-          sx={{ width: 180, height: 180, border: "2px solid black" }}
+          sx={{
+            width: 180,
+            height: 180,
+            border: "2px solid black",
+            marginTop: 2,
+          }}
           src={logo}
         />
       </Grid2>
@@ -145,7 +154,7 @@ export default function SignUp() {
 
 const styles = {
   centerBox: {
-    marginTop: 6,
+    marginTop: 4,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

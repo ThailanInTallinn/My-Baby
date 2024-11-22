@@ -57,9 +57,18 @@ export default function SignIn() {
       size={{ xs: 12 }}
       sx={{ height: "100vh", width: "100vw" }}
     >
-      <Grid2 item="true" size={{ xs: 12 }} sx={styles.centerBox}>
+      <Grid2
+        item="true"
+        size={{ xs: 12 }}
+        sx={{ ...styles.centerBox, marginTop: 0 }}
+      >
         <Avatar
-          sx={{ width: 180, height: 180, border: "2px solid black" }}
+          sx={{
+            width: 180,
+            height: 180,
+            border: "2px solid black",
+            marginTop: 6,
+          }}
           src={logo}
         />
       </Grid2>

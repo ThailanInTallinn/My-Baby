@@ -20,8 +20,8 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [alertSeverity, setAlertSeverity] = useState("");
   const timeOutDuration = 6000;
   const supabase = createClient(
-    import.meta.env.VITE_SUPABASE_URL!,
-    import.meta.env.VITE_SUPABASE_ANON_KEY!
+    import.meta.env.VITE_SUPABASE_URL,
+    import.meta.env.VITE_SUPABASE_ANON_KEY
   );
 
   const showSnackMessage = (message: string) => {

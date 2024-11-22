@@ -1,7 +1,18 @@
+import {
+  ContainerComponent,
+  DatePickerComponent,
+  DateTimePickerComponent,
+} from "../components";
+
 export default function Home() {
   return (
-    <div>
-      <span style={{ color: "white" }}>Ola</span>
-    </div>
+    <ContainerComponent
+      size={{ xs: 12 }}
+      sx={{ height: "100vh", width: "100vw" }}
+    >
+      <span style={{ color: "black" }}>Ola</span>
+      <DatePickerComponent />
+      <DateTimePickerComponent />
+    </ContainerComponent>
   );
 }

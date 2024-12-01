@@ -1,10 +1,18 @@
 import { Alert, Grid2, Snackbar } from "@mui/material";
 import { createClient } from "@supabase/supabase-js";
-import { createContext, ReactElement, useContext, useState } from "react";
+import {
+  createContext,
+  ReactElement,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { useTranslation } from "react-i18next";
 
 const AppContext = createContext(null);
 
 const AppProvider = ({ children }) => {
+  const { t: translate, i18n } = useTranslation();
   const [snackOpen, setSnackOpen] = useState(false);
   const [snackMessage, setSnackMessage] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
@@ -30,6 +38,11 @@ const AppProvider = ({ children }) => {
     setSnackMessage("");
   };
 
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("language", lang);
+  };
+
   const showAlertMessage = (message, severity) => {
     setAlertMessage(message);
     setAlertSeverity(severity);
@@ -40,13 +53,22 @@ const AppProvider = ({ children }) => {
     }, timeOutDuration);
   };
 
-  const mudarIdioma = () => {};
+  useEffect(() => {
+    const storeLanguage = localStorage.getItem("language");
+
+    if (storeLanguage) {
+      changeLanguage(storeLanguage);
+    } else {
+      const navLang = navigator.language.split("-");
+      changeLanguage(navLang[0]);
+    }
+  }, []);
 
   const sharedState = {
-    mudarIdioma,
     showSnackMessage,
     showAlertMessage,
     supabase,
+    translate,
   };
 
   return (

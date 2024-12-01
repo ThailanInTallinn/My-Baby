@@ -105,6 +105,7 @@ export default function SignUp() {
         helperText: null,
       },
     }));
+    navigate("/signin");
   };
 
   return (

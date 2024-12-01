@@ -17,9 +17,10 @@ import { signIn } from "../services/authentication";
 import { useState } from "react";
 import { useAppContext } from "../Context";
 import { handleChange } from "../utils/core";
+import { validateEmail } from "../utils/validators";
 
 export default function SignIn() {
-  const { supabase, showSnackMessage, showAlertMessage } = useAppContext();
+  const { showSnackMessage, showAlertMessage } = useAppContext();
   const navigate = useNavigate();
 
   const [data, setData] = useState({
@@ -36,19 +37,48 @@ export default function SignIn() {
     },
   });
 
-  const verifyLogin = async () => {
-    let { data: response, error } = await signIn(
-      data.email.value,
-      data.password.value,
-      supabase
-    );
+  const verifyLogin = () => {
+    let dataBase = JSON.parse(localStorage.getItem("credentials"));
+    const emailValidation = validateEmail(data.email.value);
+    if (!dataBase) {
+      showAlertMessage("Usuário não cadastrado.", "error");
+      return;
+    }
 
-    if (error && error.message == "Invalid login credentials") {
-      showSnackMessage("Dados de usuário inválidos");
+    setData((data) => ({
+      ...data,
+      email: {
+        value: data.email.value,
+        error: emailValidation.error,
+        helperText: emailValidation.helperText,
+      },
+    }));
+
+    if (emailValidation.error) {
+      return;
+    }
+
+    const isProvidedEmail = dataBase.map((item) => {
+      return item.email.value == data.email.value;
+    });
+
+    const providedEmail = dataBase.filter((item) => {
+      return item.email.value == data.email.value;
+    });
+
+    if (!isProvidedEmail) {
+      showAlertMessage("Usuário não cadastrado", "error");
+      return;
     } else {
-      localStorage.setItem("session", JSON.stringify(response.session));
-      localStorage.setItem("user", JSON.stringify(response.user));
-      navigate("/");
+      if (providedEmail[0].password.value == data.password.value) {
+        const userSession = Math.round(Math.random() * 10000000);
+        localStorage.setItem("session", JSON.stringify(userSession));
+        showSnackMessage("Seja bem-vindo!");
+        navigate("/");
+      } else {
+        showAlertMessage("Senha incorreta", "error");
+        return;
+      }
     }
   };
 

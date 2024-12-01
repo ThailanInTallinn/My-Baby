@@ -13,12 +13,3 @@ export function handleVerificationProtected() {
   if (!session) throw redirect("/signin");
   return null;
 }
-
-const signIn = async (email, password, supabase) => {
-  return await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-};
-
-export { signIn };

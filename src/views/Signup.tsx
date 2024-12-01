@@ -20,8 +20,9 @@ import { handleChange } from "../utils/core";
 import { validateEmail } from "../utils/validators";
 
 export default function SignUp() {
-  const { supabase, showSnackMessage, showAlertMessage } = useAppContext();
+  const { showSnackMessage, showAlertMessage } = useAppContext();
   const navigate = useNavigate();
+  const [credentials, setCredentials] = useState([]);
 
   const [data, setData] = useState({
     email: {
@@ -43,8 +44,15 @@ export default function SignUp() {
     },
   });
 
-  const verifyRegister = async () => {
+  const verifyRegister = () => {
+    let dataBase = JSON.parse(localStorage.getItem("credentials"));
+
     const emailValidation = validateEmail(data.email.value);
+
+    if (!dataBase) {
+      localStorage.setItem("credentials", JSON.stringify([]));
+      dataBase = JSON.parse(localStorage.getItem("credentials"));
+    }
 
     setData((data) => ({
       ...data,
@@ -54,16 +62,49 @@ export default function SignUp() {
         helperText: emailValidation.helperText,
       },
     }));
-    if (data.password.value != data.confirmPassword.value) {
-      showAlertMessage("As senhas não coincidem", "warning");
+
+    if (emailValidation.error == true) {
       return;
     }
 
-    let { data: response, error } = await signIn(
-      data.email.value,
-      data.password.value,
-      supabase
-    );
+    const isExistingEmail = dataBase.map((item) => {
+      console.log(item.email.value == data.email.value);
+      return item.email.value == data.email.value;
+    });
+
+    if (isExistingEmail == true) {
+      showAlertMessage("Usuário já cadastrado.", "error");
+      return;
+    }
+
+    if (data.password.value != data.confirmPassword.value) {
+      showAlertMessage("As senhas não coincidem", "error");
+      return;
+    }
+
+    dataBase.push(data);
+    localStorage.setItem("credentials", JSON.stringify(dataBase));
+
+    setData((current) => ({
+      ...current,
+      email: {
+        value: "",
+        error: null,
+        helperText: null,
+      },
+
+      password: {
+        value: "",
+        error: null,
+        helperText: null,
+      },
+
+      confirmPassword: {
+        value: "",
+        error: null,
+        helperText: null,
+      },
+    }));
   };
 
   return (
@@ -144,7 +185,12 @@ export default function SignUp() {
         size={{ xs: 12 }}
         sx={{ ...styles.centerBox, ...styles.registerButton }}
       >
-        <Button onClick={verifyRegister} size="large">
+        <Button
+          onClick={() => {
+            verifyRegister();
+          }}
+          size="large"
+        >
           <span style={styles.buttonText}>Registrar</span>
         </Button>
       </Grid2>

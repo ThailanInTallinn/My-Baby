@@ -20,7 +20,7 @@ import { handleChange } from "../utils/core";
 import { validateEmail } from "../utils/validators";
 
 export default function SignIn() {
-  const { showSnackMessage, showAlertMessage } = useAppContext();
+  const { showSnackMessage, showAlertMessage, translate } = useAppContext();
   const navigate = useNavigate();
 
   const [data, setData] = useState({
@@ -114,11 +114,11 @@ export default function SignIn() {
         size={{ xs: 12 }}
         sx={{ ...styles.centerBox, color: "black", marginTop: 4 }}
       >
-        <Typography variant="h5">Seja bem-vindo</Typography>
+        <Typography variant="h5">{translate("welcome")}</Typography>
       </Grid2>
       <Grid2 item="true" size={{ xs: 12 }} sx={styles.centerBox}>
         <TextField
-          label="e-mail"
+          label="E-mail"
           value={data.email.value}
           fullWidth={true}
           onChange={(event) =>
@@ -128,7 +128,7 @@ export default function SignIn() {
       </Grid2>
       <Grid2 item="true" size={{ xs: 12 }} sx={styles.centerBox}>
         <TextField
-          label="senha"
+          label={translate("password")}
           value={data.password.value}
           fullWidth={true}
           type="password"
@@ -138,11 +138,11 @@ export default function SignIn() {
         />
       </Grid2>
       <Grid2 item="true" size={{ xs: 12 }} sx={styles.centerBox}>
-        <Link to={"/signup"}>Cadastrar</Link>
+        <Link to={"/signup"}>{translate("register")}</Link>
       </Grid2>
       <Grid2 item="true" size={{ xs: 12 }} sx={styles.centerBox}>
         <Button onClick={verifyLogin} size="large">
-          Entrar
+          {translate("sign-in")}
         </Button>
       </Grid2>
     </ContainerComponent>

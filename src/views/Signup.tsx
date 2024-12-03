@@ -20,9 +20,8 @@ import { handleChange } from "../utils/core";
 import { validateEmail } from "../utils/validators";
 
 export default function SignUp() {
-  const { showSnackMessage, showAlertMessage } = useAppContext();
+  const { showSnackMessage, showAlertMessage, translate } = useAppContext();
   const navigate = useNavigate();
-  const [credentials, setCredentials] = useState([]);
 
   const [data, setData] = useState({
     email: {
@@ -133,18 +132,18 @@ export default function SignUp() {
         size={{ xs: 12 }}
         sx={{ ...styles.centerBox, color: "black", marginTop: 4 }}
       >
-        <Typography variant="h3">Cadastre-se</Typography>
+        <Typography variant="h3">{translate("register")}</Typography>
       </Grid2>
       <Grid2
         item="true"
         size={{ xs: 12 }}
         sx={{ ...styles.centerBox, color: "black", marginTop: 4 }}
       >
-        <Typography variant="h5">Seja bem-vindo</Typography>
+        <Typography variant="h5">{translate("welcome")}</Typography>
       </Grid2>
       <Grid2 item="true" size={{ xs: 12 }} sx={styles.centerBox}>
         <TextField
-          label="e-mail"
+          label="E-mail"
           value={data.email.value}
           helperText={data.email.helperText}
           error={data.email.error}
@@ -156,7 +155,7 @@ export default function SignUp() {
       </Grid2>
       <Grid2 item="true" size={{ xs: 12 }} sx={styles.centerBox}>
         <TextField
-          label="senha"
+          label={translate("password")}
           value={data.password.value}
           fullWidth={true}
           type="password"
@@ -168,7 +167,7 @@ export default function SignUp() {
 
       <Grid2 item="true" size={{ xs: 12 }} sx={styles.centerBox}>
         <TextField
-          label="Confirmar senha"
+          label={translate("confirm-password")}
           value={data.confirmPassword.value}
           fullWidth={true}
           type="password"
@@ -179,7 +178,9 @@ export default function SignUp() {
       </Grid2>
 
       <Grid2 item="true" size={{ xs: 12 }} sx={styles.centerBox}>
-        <Link to={"/signin"}>Já possui uma conta? Faça login</Link>
+        <Link to={"/signin"}>
+          {translate("already-has-account")} {translate("login")}
+        </Link>
       </Grid2>
       <Grid2
         item="true"

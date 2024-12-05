@@ -9,6 +9,15 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 
+import duration from "dayjs/plugin/duration";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import dayjs from "dayjs";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(duration);
+
 const AppContext = createContext(null);
 
 const AppProvider = ({ children }) => {

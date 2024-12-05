@@ -8,23 +8,26 @@ import { useAppContext } from "../Context";
 import { useTheme } from "@mui/material/styles";
 import { ACTIONS } from "../constants/actions";
 import CustomList from "../components/custom/customList";
+import { useEffect, useState } from "react";
+import { list } from "../services/database";
 
 export default function Home() {
-  const items = [
-    { actionType: 1 },
-    { actionType: 2 },
-    { actionType: 3 },
-    { actionType: 3 },
-    { actionType: 2 },
-    { actionType: 1 },
-    { actionType: 2 },
-    { actionType: 2 },
-    { actionType: 2 },
-  ];
-
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
   const { translate } = useAppContext();
   const theme = useTheme();
+
+  const loadData = () => {
+    const d = list();
+    if (d) {
+      setData(d);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
   return (
     <Grid2 container={true} sx={{ width: "100vw" }}>
       <Grid2
@@ -117,7 +120,7 @@ export default function Home() {
         <Grid2 container={true} sx={{ marginTop: "1em" }}>
           <Grid2 size={{ xs: 12 }}>
             <CustomList
-              items={items}
+              items={data}
               sx={{ overflow: "auto", maxHeight: "56.5vh" }}
             />
           </Grid2>

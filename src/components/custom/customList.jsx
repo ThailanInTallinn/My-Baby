@@ -12,9 +12,11 @@ import CribIcon from "@mui/icons-material/Crib";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import SpaIcon from "@mui/icons-material/Spa";
 import { useAppContext } from "../../Context";
+import { useNavigate } from "react-router-dom";
 
 export default function CustomList({ items, ...props }) {
   const theme = useTheme();
+  const navigate = useNavigate();
   const { translate } = useAppContext();
   const typesString = {
     1: "sleep",
@@ -40,7 +42,7 @@ export default function CustomList({ items, ...props }) {
     return "Cagando";
   };
 
-  const generateSubtitle = (item) => {
+  const generateSubtitle = (item, translate) => {
     switch (item.actionType) {
       case 1:
         return subtitleSleep(item);
@@ -76,6 +78,7 @@ export default function CustomList({ items, ...props }) {
       }}
     >
       {items.map((item, index) => {
+        const typeStr = typesString[item.actionType];
         return (
           <ListItem
             key={index}
@@ -84,6 +87,8 @@ export default function CustomList({ items, ...props }) {
               borderRadius: "60px",
               marginTop: "1em",
             }}
+            id={`new-item-list-${index}`}
+            onClick={() => navigate(`/${item.actionType}/${item.id}`)}
           >
             <ListItemAvatar>
               <Avatar sx={{ backgroundColor: typesColor[item.actionType] }}>
@@ -92,7 +97,7 @@ export default function CustomList({ items, ...props }) {
             </ListItemAvatar>
             <ListItemText
               primary={translate(typesString[item.actionType])}
-              secondary={generateSubtitle(item)}
+              secondary={generateSubtitle(item, translate)}
               sx={{ color: "black" }}
             />
           </ListItem>

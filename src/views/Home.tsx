@@ -110,7 +110,7 @@ export default function Home() {
               {ACTIONS.map((item, index) => {
                 return (
                   <Grid2 size={{ xs: 4 }} item="true" key={index}>
-                    <CardNewItem {...item} key={index} />
+                    <CardNewItem {...item} key={index} translate={translate} />
                   </Grid2>
                 );
               })}

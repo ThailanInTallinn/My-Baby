@@ -2,7 +2,13 @@ import { Box, Card, Fab, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 
-export default function CardNewItem({ title, actionType, Icon, color }) {
+export default function CardNewItem({
+  title,
+  actionType,
+  Icon,
+  color,
+  translate,
+}) {
   const navigate = useNavigate();
 
   return (
@@ -25,7 +31,7 @@ export default function CardNewItem({ title, actionType, Icon, color }) {
           wordWrap: "break-word",
         }}
       >
-        {title}
+        {translate(title)}
       </Typography>
       <Typography
         sx={{
@@ -36,7 +42,7 @@ export default function CardNewItem({ title, actionType, Icon, color }) {
           textAlign: "center",
         }}
       >
-        Adicione algo
+        {translate("add-something")}
       </Typography>
       <Box
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}

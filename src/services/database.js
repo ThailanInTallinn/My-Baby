@@ -20,10 +20,11 @@ const update = (data, id) => {
 
 const remove = (id) => {
   const totalData = list();
-  const index = totalData.findIndex((item) => item.id == id);
-  delete totalData[index];
+  const filteredData = totalData.filter((item) => {
+    return item.id != id;
+  });
 
-  localStorage.setItem("items", JSON.stringify(totalData));
+  localStorage.setItem("items", JSON.stringify(filteredData));
 };
 
 const get = (id) => {

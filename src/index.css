@@ -73,3 +73,11 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.css-vi0et6-MuiGrid2-root {
+  width: 100vw;
+}
+
+.Button {
+  width: 80px;
+}

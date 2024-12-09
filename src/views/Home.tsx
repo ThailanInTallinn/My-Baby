@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useAppContext } from "../Context";
 import { useTheme } from "@mui/material/styles";
-import { ACTIONS } from "../constants/actions";
 import CustomList from "../components/custom/customList";
 import { useEffect, useState } from "react";
 import { list } from "../services/database";
+import { ACTIONS } from "../constants/actions";
 
 export default function Home() {
   const [data, setData] = useState([]);

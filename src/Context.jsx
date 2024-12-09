@@ -1,4 +1,10 @@
-import { Alert, Grid2, Snackbar } from "@mui/material";
+import {
+  Alert,
+  Grid2,
+  Snackbar,
+  ThemeProvider,
+  useMediaQuery,
+} from "@mui/material";
 import { createClient } from "@supabase/supabase-js";
 import {
   createContext,
@@ -13,6 +19,7 @@ import duration from "dayjs/plugin/duration";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import dayjs from "dayjs";
+import { lightTheme, darkTheme } from "./theme";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -80,31 +87,35 @@ const AppProvider = ({ children }) => {
     translate,
   };
 
+  const isDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
   return (
     <div className="app-background">
       <AppContext.Provider value={sharedState}>
-        {children}
-        <Snackbar
-          message={snackMessage}
-          open={snackOpen}
-          onClose={handleClose}
-        />
-        {alertMessage ? (
-          <Grid2
-            container={true}
-            sx={{
-              position: "absolute",
-              left: 0,
-              bottom: 0,
-              width: "100%",
-              padding: 2,
-            }}
-          >
-            <Grid2 sx={{ width: "100%" }}>
-              <Alert severity={alertSeverity}>{alertMessage}</Alert>
+        <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+          {children}
+          <Snackbar
+            message={snackMessage}
+            open={snackOpen}
+            onClose={handleClose}
+          />
+          {alertMessage ? (
+            <Grid2
+              container={true}
+              sx={{
+                position: "absolute",
+                left: 0,
+                bottom: 0,
+                width: "100%",
+                padding: 2,
+              }}
+            >
+              <Grid2 sx={{ width: "100%" }}>
+                <Alert severity={alertSeverity}>{alertMessage}</Alert>
+              </Grid2>
             </Grid2>
-          </Grid2>
-        ) : null}
+          ) : null}
+        </ThemeProvider>
       </AppContext.Provider>
     </div>
   );

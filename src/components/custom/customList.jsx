@@ -31,15 +31,38 @@ export default function CustomList({ items, ...props }) {
   };
 
   const subtitleSleep = (item) => {
-    return "Dormindo";
+    return `${translate("from")} ${item.start_date.slice(
+      8,
+      10
+    )}/${item.start_date.slice(5, 7)}/${item.start_date.slice(
+      0,
+      4
+    )} ${item.start_date.slice(11, 16)} ${translate(
+      "to"
+    )} ${item.end_date.slice(8, 10)}/${item.end_date.slice(
+      5,
+      7
+    )}/${item.start_date.slice(0, 4)} ${item.end_date.slice(11, 16)}`;
   };
 
   const subtitleEat = (item) => {
-    return "Comendo";
+    return `${translate("from")} ${item.start_date.slice(
+      8,
+      10
+    )}/${item.start_date.slice(5, 7)}/${item.start_date.slice(
+      0,
+      4
+    )} ${item.start_date.slice(11, 16)}`;
   };
 
   const subtitleDiaper = (item) => {
-    return "Cagando";
+    return `${translate("@")} ${item.start_date.slice(
+      8,
+      10
+    )}/${item.start_date.slice(5, 7)}/${item.start_date.slice(
+      0,
+      4
+    )} ${item.start_date.slice(11, 16)}`;
   };
 
   const generateSubtitle = (item, translate) => {

@@ -13,6 +13,7 @@ import { list } from "../services/database";
 
 export default function Home() {
   const [data, setData] = useState([]);
+  const [babyData, setBabyData] = useState([]);
   const navigate = useNavigate();
   const { translate } = useAppContext();
   const theme = useTheme();
@@ -24,8 +25,20 @@ export default function Home() {
     }
   };
 
+  const loadBabyData = () => {
+    const babyData = localStorage.getItem("babyData");
+    if (babyData) {
+      setBabyData(JSON.parse(babyData)[0]);
+    } else {
+      setBabyData({
+        name: `${translate("default-name")}`,
+      });
+    }
+  };
+
   useEffect(() => {
     loadData();
+    loadBabyData();
   }, []);
 
   return (
@@ -33,26 +46,36 @@ export default function Home() {
       <Grid2
         item="true"
         size={{ xs: 12 }}
-        sx={{ marginTop: "1em", height: "25vh" }}
+        sx={{
+          height: "25vh",
+          paddingTop: "1rem",
+          backgroundColor: `${theme.palette.secondary.light}`,
+        }}
       >
         <Grid2 container={true}>
-          <Grid2 item="true" size={{ xs: 4 }} sx={{ ...styles.centerBox }}>
+          <Grid2
+            item="true"
+            size={{ xs: 4 }}
+            sx={{
+              ...styles.centerBox,
+            }}
+          >
             <IconButton
               onClick={() => {
                 navigate("/dashboard");
               }}
               sx={{
                 ...styles.iconButton,
-                border: `2px solid ${theme.palette.primary.main}`,
+                border: `2px solid ${theme.palette.primary.dark}`,
               }}
             >
               <SignalCellularAltIcon
-                sx={{ ...styles.icon, color: `${theme.palette.primary.main}` }}
+                sx={{ ...styles.icon, color: `${theme.palette.primary.dark}` }}
               />
             </IconButton>
             <Box sx={styles.boxText}>
               <Typography sx={{ ...styles.centerText, ...styles.text2 }}>
-                52 cm
+                {babyData.height ? `${babyData.height} cm` : ` cm`}
               </Typography>
               <Typography sx={{ ...styles.centerText, ...styles.text3 }}>
                 {translate("height")}
@@ -63,10 +86,7 @@ export default function Home() {
             <Avatar src={Baby} sx={{ width: 90, height: 90 }} />
             <Box sx={styles.boxText}>
               <Typography sx={{ ...styles.centerText, ...styles.text1 }}>
-                Benicio
-              </Typography>
-              <Typography sx={{ ...styles.centerText, ...styles.text3 }}>
-                X {translate("days")}
+                {babyData.name}
               </Typography>
             </Box>
           </Grid2>
@@ -77,14 +97,14 @@ export default function Home() {
               }}
               sx={{
                 ...styles.iconButton,
-                border: `2px solid ${theme.palette.primary.main}`,
+                border: `2px solid ${theme.palette.primary.dark}`,
               }}
             >
-              <SettingsIcon sx={{ color: `${theme.palette.primary.main}` }} />
+              <SettingsIcon sx={{ color: `${theme.palette.primary.dark}` }} />
             </IconButton>
             <Box sx={styles.boxText}>
               <Typography sx={{ ...styles.centerText, ...styles.text2 }}>
-                3,80 kg
+                {babyData.weight ? `${babyData.weight} kg` : ` kg`}
               </Typography>
               <Typography sx={{ ...styles.centerText, ...styles.text3 }}>
                 {translate("weight")}
@@ -96,7 +116,7 @@ export default function Home() {
       <Grid2
         item="true"
         size={{ xs: 12 }}
-        sx={{ backgroundColor: theme.palette.primary.main, height: "75vh" }}
+        sx={{ backgroundColor: theme.palette.primary.dark, height: "75vh" }}
       >
         <Grid2
           container={true}

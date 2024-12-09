@@ -58,5 +58,7 @@
   "min": "Min.",
   "from": "De",
   "to": "Hasta",
-  "days": "Día(s)"
+  "days": "Día(s)",
+  "@": "A las",
+  "default-name": "Nombre de tu bebé"
 }

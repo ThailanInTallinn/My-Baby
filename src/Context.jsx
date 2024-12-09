@@ -34,10 +34,6 @@ const AppProvider = ({ children }) => {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("");
   const timeOutDuration = 6000;
-  const supabase = createClient(
-    import.meta.env.VITE_SUPABASE_URL,
-    import.meta.env.VITE_SUPABASE_ANON_KEY
-  );
 
   const showSnackMessage = (message) => {
     setSnackMessage("Cliquei");
@@ -83,7 +79,6 @@ const AppProvider = ({ children }) => {
   const sharedState = {
     showSnackMessage,
     showAlertMessage,
-    supabase,
     translate,
   };
 
